@@ -55,27 +55,22 @@ _.extend(Dealer.prototype, {
 
     switch (stage) {
       case PRE_FLOP:
-        console.log('Dealing pre_flop');
         this.dealPreFlop();
         break;
 
       case FLOP:
-        console.log('Dealing flop');
         this.dealFlop();
         break;
 
       case TURN:
-        console.log('Dealing turn');
         this.dealTurn();
         break;
 
       case RIVER:
-        console.log('Dealing river');
         this.dealRiver();
         break;
 
       case ROUND_COMPLETE:
-        console.log('Dealing round_complete');
         break;
     }
 
@@ -191,9 +186,6 @@ Meteor.methods({
 
     table = dealer.deal(table);
 
-    console.log(table);
-    // console.log(table.seats[0].hand);
-
     Tables.update({ _id: tableId }, table);
   },
 
@@ -202,8 +194,6 @@ Meteor.methods({
     var dealer = getDealerForTable(tableId);
 
     table = dealer.resetTable(table);
-
-    console.log(table);
 
     Tables.update({ _id: tableId }, table);
   }
