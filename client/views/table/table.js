@@ -70,7 +70,3 @@ Template.table.table = function() {
 Template.table.any_table_selected = function() {
   return ! Session.equals('active_table_id', null);
 };
-
-Template.table.hand_complete = function() {
-  return true;
-};
