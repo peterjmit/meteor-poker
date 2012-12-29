@@ -1,27 +1,27 @@
 <template name="player">
-<li class="span2">
-  <div class="thumbnail">
-    {{#if name}}
-    <img src="/img/player-with-cards.svg" alt="poker player holding cards">
-    <div class="caption">
-      <h3>{{name}}</h3>
+{{#if name}}
 
-      {{#each hand}}
-      {{#if hand_complete}}
-      {{> card}}
-      {{else}}
-      <span class="card card-back"></span>
-      {{/if}}
-      {{/each}}
+<img src="/img/player-with-cards.svg" alt="poker player holding cards">
+<h3>{{name}}</h3>
 
-      <br class="clearfix" />
-    </div>
+<div class="player-cards row-fluid">
+  {{#each hand}}
+  <div class="span6">
+    {{#if can_see_cards ../playerId}}
+    <span class="card {{suit}} value-{{value}}"></span>
     {{else}}
-    <img src="/img/question.svg" alt="poker player holding cards">
-    <div class="caption">
-      <button class="btn btn-block btn-warning">Join</button>
-    </div>
+    <span class="card card-back"></span>
     {{/if}}
   </div>
-</li>
+  {{/each}}
+</div>
+
+{{else}}
+
+<img src="/img/question.svg" alt="poker player holding cards">
+<div class="caption">
+  <button class="btn btn-block btn-warning">Join</button>
+</div>
+
+{{/if}}
 </template>

@@ -1,3 +1,3 @@
-Template.player.hand_complete = function() {
+Template.player.can_see_cards = function() {
   return true;
 };
