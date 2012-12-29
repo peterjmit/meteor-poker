@@ -13,7 +13,7 @@ body {
 
   width: 14em; /* 224px */
   height: 19.5625em; /* 313px */
-
+173.15625
   font-size: 0.4em;
   line-height: 1.25em;
   background-image: url('/img/deck-sprite.gif');
@@ -33,6 +33,7 @@ body {
 }
 
 /* sprite starts at 87px from left and 35px */
+.card.card-back { background-position: -5.15625em -181.71875em; }
 
 .card.C { background-position-y: -2.125em; }
 .card.H { background-position-y: -21.6875em; }
@@ -52,6 +53,7 @@ body {
 .card.J  { background-position-x: -145.15625em; }
 .card.Q  { background-position-x: -159.15625em; }
 .card.K  { background-position-x: -173.15625em; }
+
 
 .players .card {
   font-size: 0.2em;
