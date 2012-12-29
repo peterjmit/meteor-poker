@@ -154,19 +154,19 @@ _.extend(Dealer.prototype, {
       return PRE_FLOP;
     }
 
-    if ( ! isPreFlop && ! flop && ! turn && ! river) {
+    if ( ! isPreFlop && flop.length === 0 && _.isEmpty(turn) && _.isEmpty(river)) {
       return FLOP;
     }
 
-    if ( ! isPreFlop && flop && ! turn && ! river) {
+    if ( ! isPreFlop && flop.length > 0 && _.isEmpty(turn) && _.isEmpty(river)) {
       return TURN;
     }
 
-    if ( ! isPreFlop && flop && turn && ! river) {
+    if ( ! isPreFlop && flop.length > 0 &&  ! _.isEmpty(turn) && _.isEmpty(river)) {
       return RIVER;
     }
 
-    if ( ! isPreFlop && flop && turn && river) {
+    if ( ! isPreFlop && flop.length > 0 && ! _.isEmpty(turn) && ! _.isEmpty(river)) {
       return ROUND_COMPLETE;
     }
 
