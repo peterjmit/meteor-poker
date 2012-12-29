@@ -23,12 +23,18 @@
 <!-- hand can be displayed here -->
 
 <div class="table-cards">
-{{#if table.activeHandId}}
-  {{> hand}}
-{{/if}}
+  {{#each table.flop}}
+    {{> card}}
+  {{/each}}
+
+  {{#if table.turn.value}}
+  <span class="card {{table.turn.suit}} value-{{table.turn.value}}"></span>
+  {{/if}}
+
+  {{#if table.river.value}}
+  <span class="card {{table.river.suit}} value-{{table.river.value}}"></span>
+  {{/if}}
 </div>
-
-
 
 {{/if}}
 </template>
