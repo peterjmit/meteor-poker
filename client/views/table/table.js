@@ -72,5 +72,5 @@ Template.table.any_table_selected = function() {
 };
 
 Template.table.hand_complete = function() {
-  return false;
+  return true;
 };

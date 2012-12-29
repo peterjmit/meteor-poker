@@ -13,7 +13,6 @@ body {
 
   width: 14em; /* 224px */
   height: 19.5625em; /* 313px */
-173.15625
   font-size: 0.4em;
   line-height: 1.25em;
   background-image: url('/img/deck-sprite.gif');
@@ -40,19 +39,19 @@ body {
 .card.S { background-position-y: -41.25em; /*-16.03010825em; */ }
 .card.D { background-position-y: -60.8125em; }
 
-.card.A  { background-position-x: -5.15625em; }
-.card.2  { background-position-x: -19.15625em; }
-.card.3  { background-position-x: -33.15625em; }
-.card.4  { background-position-x: -47.15625em; }
-.card.5  { background-position-x: -61.15625em; }
-.card.6  { background-position-x: -75.15625em; }
-.card.7  { background-position-x: -89.15625em; }
-.card.8  { background-position-x: -103.15625em; }
-.card.9  { background-position-x: -117.15625em; }
-.card.10 { background-position-x: -131.15625em; }
-.card.J  { background-position-x: -145.15625em; }
-.card.Q  { background-position-x: -159.15625em; }
-.card.K  { background-position-x: -173.15625em; }
+.card.value-A  { background-position-x: -5.15625em; }
+.card.value-2  { background-position-x: -19.15625em; }
+.card.value-3  { background-position-x: -33.15625em; }
+.card.value-4  { background-position-x: -47.15625em; }
+.card.value-5  { background-position-x: -61.15625em; }
+.card.value-6  { background-position-x: -75.15625em; }
+.card.value-7  { background-position-x: -89.15625em; }
+.card.value-8  { background-position-x: -103.15625em; }
+.card.value-9  { background-position-x: -117.15625em; }
+.card.value-10 { background-position-x: -131.15625em; }
+.card.value-J  { background-position-x: -145.15625em; }
+.card.value-Q  { background-position-x: -159.15625em; }
+.card.value-K  { background-position-x: -173.15625em; }
 
 
 .players .card {
