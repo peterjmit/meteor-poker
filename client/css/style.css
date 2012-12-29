@@ -4,13 +4,13 @@ body {
   font-size: 16px !important;
 }
 
+.table-cards {
+  min-height: 150px;
+}
+
 .card {
   display: block;
   float:left;
-
-  /* width: 13.875em; /* 222px */
-  /* height: 19.375em; /* 310px */
-
   width: 14em; /* 224px */
   height: 19.5625em; /* 313px */
   font-size: 0.4em;
@@ -20,13 +20,6 @@ body {
   -o-background-size: 191.25em 101.25em;
   -moz-background-size: 191.25em 101.25em;
   background-size: 191.25em 101.25em;
-  /* styles carried over from the original implementation */
-/*  background-repeat: no-repeat;
-  background-color: #ccc;
-  color: #444;
-  text-decoration: none;
-  text-shadow: 0 -1px 2px #fff;*/
-
   margin-bottom: 2em;
   margin-right: 2em;
 }
@@ -53,7 +46,6 @@ body {
 .card.value-Q  { background-position-x: -159.15625em; }
 .card.value-K  { background-position-x: -173.15625em; }
 
-
 .players .card {
-  font-size: 0.2em;
+  font-size: 0.3em;
 }
