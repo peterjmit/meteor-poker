@@ -1,0 +1,34 @@
+<template name="table">
+{{#if any_table_selected}}
+
+<h2>
+  {{table.name}}
+  <!-- <button class="btn btn-success">Join</button> -->
+</h2>
+
+<hr />
+
+<button class="btn btn-primary deal">Deal</button>
+<button class="btn btn-info new-hand">New hand</button>
+
+<hr />
+
+<!-- list the players here -->
+<ul class="players thumbnails">
+  {{#each table.seats}}
+    {{> player}}
+  {{/each}}
+</ul>
+
+<!-- hand can be displayed here -->
+
+<div class="table-cards">
+{{#if table.activeHandId}}
+  {{> hand}}
+{{/if}}
+</div>
+
+
+
+{{/if}}
+</template>

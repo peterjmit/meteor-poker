@@ -1,0 +1,58 @@
+body {
+  position: relative;
+  padding-top: 70px;
+  font-size: 16px !important;
+}
+
+.card {
+  display: block;
+  float:left;
+
+  /* width: 13.875em; /* 222px */
+  /* height: 19.375em; /* 310px */
+
+  width: 14em; /* 224px */
+  height: 19.5625em; /* 313px */
+
+  font-size: 0.4em;
+  line-height: 1.25em;
+  background-image: url('/img/deck-sprite.gif');
+  -webkit-background-size: 191.25em 101.25em; /* 3060px 1620px */
+  -o-background-size: 191.25em 101.25em;
+  -moz-background-size: 191.25em 101.25em;
+  background-size: 191.25em 101.25em;
+  /* styles carried over from the original implementation */
+/*  background-repeat: no-repeat;
+  background-color: #ccc;
+  color: #444;
+  text-decoration: none;
+  text-shadow: 0 -1px 2px #fff;*/
+
+  margin-bottom: 2em;
+  margin-right: 2em;
+}
+
+/* sprite starts at 87px from left and 35px */
+
+.card.C { background-position-y: -2.125em; }
+.card.H { background-position-y: -21.6875em; }
+.card.S { background-position-y: -41.25em; /*-16.03010825em; */ }
+.card.D { background-position-y: -60.8125em; }
+
+.card.A  { background-position-x: -5.15625em; }
+.card.2  { background-position-x: -19.15625em; }
+.card.3  { background-position-x: -33.15625em; }
+.card.4  { background-position-x: -47.15625em; }
+.card.5  { background-position-x: -61.15625em; }
+.card.6  { background-position-x: -75.15625em; }
+.card.7  { background-position-x: -89.15625em; }
+.card.8  { background-position-x: -103.15625em; }
+.card.9  { background-position-x: -117.15625em; }
+.card.10 { background-position-x: -131.15625em; }
+.card.J  { background-position-x: -145.15625em; }
+.card.Q  { background-position-x: -159.15625em; }
+.card.K  { background-position-x: -173.15625em; }
+
+.players .card {
+  font-size: 0.2em;
+}
