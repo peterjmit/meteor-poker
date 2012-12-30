@@ -12,8 +12,12 @@
     {{else}}
     <span class="card card-back"></span>
     {{/if}}
+
   </div>
   {{/each}}
+  {{#if score}}
+  <p>{{score.name}} <em>{{score.value}}</em></p>
+  {{/if}}
 </div>
 
 {{else}}

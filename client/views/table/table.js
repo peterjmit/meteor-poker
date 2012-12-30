@@ -1,4 +1,4 @@
-var deck = function(method, callback) {
+var dealer = function(method, callback) {
   var tableId = Session.get('active_table_id');
 
   Meteor.call(method, tableId, callback);
@@ -15,24 +15,27 @@ Template.table.events({
 
     $button.addClass('disabled');
 
-    deck('deal', function(error, response) {
-      console.log(arguments);
-      // var card = response.card || null;
+    dealer('deal', function (error, response) {
+      if (response.tableStatus === 'round-complete') {
+        // disable the score button and not the deal button!
+        $button = $('.score');
+      }
 
-      // if (error || ! response || ! card) {
-      //   console.log(error);
-      //   return;
-      // }
+      $button.removeClass('disabled');
+    });
+  },
 
-      // console.log(response.meta);
+  'click .score': function(evt) {
+    var $button = $(evt.target);
 
-      // var $card = $('<span />')
-      //   .addClass('card')
-      //   // .attr('src', card.getImgSrc())
-      //   .addClass(card.suit)
-      //   .addClass(card.value);
+    if ($button.hasClass('disabled')) {
+      return;
+    }
 
-      // $('.table-cards').append($card);
+    $button.addClass('disabled');
+
+    dealer('scoreTable', function (error, response) {
+      console.log(response);
 
       $button.removeClass('disabled');
     });
@@ -47,11 +50,12 @@ Template.table.events({
 
     $button.addClass('disabled');
 
-    deck('resetTable', function() {
+    dealer('resetTable', function() {
       // remove any cards
       $('.card').remove();
       $('.table-cards').empty();
       $('.deal').removeClass('disabled');
+      $('.score').addClass('disabled');
       $button.removeClass('disabled');
     });
   }

@@ -3,7 +3,6 @@ Meteor.startup(function () {
     console.log('inserting tables');
     Tables.insert({
       name: 'Table 1',
-      activeHandId: null,
       flop: [],
       turn: {},
       river: {},
