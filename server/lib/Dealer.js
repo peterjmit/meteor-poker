@@ -41,7 +41,16 @@ _.extend(Dealer.prototype, {
         break;
     }
 
+    this.collectBets();
+
     return this.table;
+  },
+
+  collectBets: function() {
+    _.each(this.table.seats, function (seat, idx) {
+      this.table.pot += parseInt(seat.bet || 0, 10);
+      this.table.seats[idx].bet = null;
+    }, this);
   },
 
   dealPreFlop: function() {

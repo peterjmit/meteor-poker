@@ -32,19 +32,7 @@ Template.table.events({
   },
 
   'click .score': function(evt) {
-    var $button = $(evt.target);
-
-    if ($button.hasClass('disabled')) {
-      return;
-    }
-
-    $button.addClass('disabled');
-
-    tableManager('scoreTable', function (error, response) {
-      console.log(response);
-
-      $button.removeClass('disabled');
-    });
+    tableManager('scoreTable', function (error, response) {});
   },
 
   'click .new-hand': function(evt) {

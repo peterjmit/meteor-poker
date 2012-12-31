@@ -22,15 +22,19 @@ Template.table.events({
   'change .bet-value': function(evt) {
     $('.bet-value-display').html($('.bet-value').val());
   }
-
 });
 
 Template.player.can_see_cards = function() {
+  // anyone with a JS console will be able to see all cards on the table
   return Meteor.userId() == this.userId || ! _.isEmpty(this.score);
 };
 
 Template.player.show_betting_controls = function() {
-  if (Meteor.userId() !== this.userId || this.hand.length === 0 || this.folded || this.bet > 0) {
+  // not the current user
+  if (Meteor.userId() !== this.userId ||
+  // or has no cards, or bet has been placed
+    this.hand.length === 0 || this.folded || this.bet !== null
+  ) {
     return false;
   }
 

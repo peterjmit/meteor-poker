@@ -19,33 +19,50 @@ var deal = function(tableId) {
   Tables.update({ _id: tableId }, {
     $set: {
       cards: table.cards,
-      seats: table.seats
+      seats: table.seats,
+      pot: table.pot
     }
   });
+
+  return dealer.getNextAction(table);
 };
 
 Meteor.methods({
   deal: deal,
 
   placeBet: function(tableId, amount) {
-    var table = Tables.findOne({ _id: tableId }),
-      dealer = getDealerForTable(tableId),
+    var table, playersStillToBet, round,
+      // dealer = getDealerForTable(tableId),
       user = Meteor.user();
 
     // check if player is eligible to bet
 
     // update next player to go
 
+    // deduct amount from players account
+
+    // update table with bet amount
     Tables.update({ _id: tableId, 'seats.userId':  user._id }, {
       $set: {
         'seats.$.bet': amount
       }
     });
 
-    // deduct amount from players account
+    table = Tables.findOne({ _id: tableId });
+
+    playersStillToBet = _.find(table.seats, function(seat) {
+      return seat.bet === null;
+    });
 
 
     // finally deal if everyone has bet
+    if (playersStillToBet) {
+      return;
+    }
+
+    round = deal(tableId);
+
+    console.log(round);
   },
 
   scoreTable: function(tableId) {
