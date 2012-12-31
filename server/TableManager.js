@@ -31,7 +31,7 @@ Meteor.methods({
   deal: deal,
 
   placeBet: function(tableId, amount) {
-    var table, playersStillToBet, round,
+    var table, playersStillToBet, stage,
       dealer = getDealerForTable(tableId),
       user = Meteor.user();
 
@@ -51,18 +51,33 @@ Meteor.methods({
     table = Tables.findOne({ _id: tableId });
 
     playersStillToBet = _.find(table.seats, function(seat) {
-      return seat.bet === null;
+      return !!seat.folded && seat.bet === null;
     });
-
 
     // finally deal if everyone has bet
     if (playersStillToBet) {
       return;
     }
 
-    round = deal(tableId);
+    stage = deal(tableId);
 
-    console.log(round);
+    console.log(stage);
+  },
+
+  fold: function(tableId) {
+    Tables.update({ _id: tableId, 'seats.userId': Meteor.userId() }, {
+      $set: {
+        'seats.$.folded': true
+      }
+    });
+  },
+
+  readyUp: function(tableId) {
+    Tables.update({ _id: tableId, 'seats.userId': Meteor.userId() }, {
+      $set: {
+        'seats.$.ready': true
+      }
+    });
   },
 
   scoreTable: function(tableId) {
@@ -97,7 +112,9 @@ Meteor.methods({
           userId: user._id,
           name: user.username,
           hand: [],
-          bet: 0
+          ready: false,
+          folded: false,
+          bet: null
         }
       }
     });

@@ -25,6 +25,22 @@ Template.table.events({
 
   'click .check': function(evt) {
     tableManager('placeBet', 0, function() {});
+  },
+
+  'click .fold': function(evt) {
+    if ( ! confirm('Are you sure you want to fold?')) {
+      return;
+    }
+
+    tableManager('fold', function() {
+      console.log(arguments);
+    });
+  }
+});
+
+Template.player.helpers({
+  not: function(val) {
+    return ! val;
   }
 });
 

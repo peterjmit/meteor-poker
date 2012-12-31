@@ -9,6 +9,7 @@
 <h3>{{name}} {{#if bet}}£{{bet}}{{/if}}</h3>
 
 <div class="player-cards row-fluid">
+  {{#if not folded}}
   {{#if can_see_cards}}
     {{#each hand}}
     <div class="span6">
@@ -21,6 +22,7 @@
       <span class="card card-back"></span>
     </div>
     {{/each}}
+  {{/if}}
   {{/if}}
 
   {{#if score.value}}
@@ -36,6 +38,10 @@
     <button class="btn check">Check</button>
     <button class="btn btn-warning fold">Fold</button>
   </div>
+  {{/if}}
+
+  {{#if folded}}
+  <p>Folded</p>
   {{/if}}
 
   <hr />

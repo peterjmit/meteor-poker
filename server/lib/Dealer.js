@@ -39,22 +39,23 @@ _.extend(Dealer.prototype, {
         break;
 
       case this.SHOWDOWN:
-        break;
-
       case this.ROUND_COMPLETE:
+        // not sure if we have an action here
         break;
     }
 
-    this.collectBets();
+    this.table = this.collectBets(this.table);
 
     return this.table;
   },
 
-  collectBets: function() {
-    _.each(this.table.seats, function (seat, idx) {
-      this.table.pot += parseInt(seat.bet || 0, 10);
-      this.table.seats[idx].bet = null;
+  collectBets: function(table) {
+    _.each(table.seats, function (seat, idx) {
+      table.pot += parseInt(seat.bet || 0, 10);
+      table.seats[idx].bet = null;
     }, this);
+
+    return table;
   },
 
   dealPreFlop: function() {
@@ -68,8 +69,7 @@ _.extend(Dealer.prototype, {
   dealToPlayers: function() {
     _.each(this.table.seats, function (seat) {
       if ( ! seat.userId) return;
-
-      // seat.hand = seat.hand || [];
+      // return if folded
 
       seat.hand.push(this.dealCard());
     }, this);

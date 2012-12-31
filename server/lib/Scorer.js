@@ -78,7 +78,9 @@ var Scorer = function(options) {
 };
 
 _.extend(Scorer.prototype, {
+  // Score each seat, and mark the winner
   scoreTable: function(table) {
+    // Score each seat's hand using Two + Two algorithm
     _.each(table.seats, function (seat, idx) {
       seat = this.scoreSeat(seat, table.cards);
       seat.score.winner = false;
@@ -93,6 +95,7 @@ _.extend(Scorer.prototype, {
     return table;
   },
 
+  // gets the unique identifiers from a hand (i.e. KH) and scores the hand
   scoreSeat: function(seat, tableCards) {
     var hand = _.pluck(seat.hand.concat(tableCards), 'id');
 
@@ -101,6 +104,8 @@ _.extend(Scorer.prototype, {
     return seat;
   },
 
+  // Convert hand to numeric values, and count score for each card.
+  // return raw score from Two + Two algorithm, and a human readable name
   scoreHand: function(hand) {
     var score = _.reduce(hand, function (start, card) {
       return this.scoreCard(start + CARDS[card]);
