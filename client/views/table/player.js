@@ -30,7 +30,7 @@ Template.player.can_see_cards = function() {
 };
 
 Template.player.show_betting_controls = function() {
-  if (this.folded || this.bet > 0) {
+  if (Meteor.userId() !== this.userId || this.hand.length === 0 || this.folded || this.bet > 0) {
     return false;
   }
 
