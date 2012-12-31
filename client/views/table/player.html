@@ -1,7 +1,11 @@
 <template name="player">
 {{#if name}}
 
+{{#if score.winner}}
+<img src="/img/winner.svg" alt="poker player holding cards">
+{{else}}
 <img src="/img/player-with-cards.svg" alt="poker player holding cards">
+{{/if}}
 <h3>{{name}}</h3>
 
 <div class="player-cards row-fluid">
@@ -15,8 +19,9 @@
 
   </div>
   {{/each}}
-  {{#if score}}
-  <p>{{score.name}} <em>{{score.value}}</em></p>
+
+  {{#if score.value}}
+  <p>{{score.name}}</p>
   {{/if}}
 </div>
 

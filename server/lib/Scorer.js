@@ -58,17 +58,17 @@ var
     'AH': 51,
     'AS': 52
   },
-  HAND_TYPES = [
-    'invalid hand',
-    'high card',
-    'one pair',
-    'two pairs',
-    'three of a kind',
-    'straight',
-    'flush',
-    'full house',
-    'four of a kind',
-    'straight flush'
+  HAND_CATEGORIES = [
+    'undefined',
+    'High card',
+    'One pair',
+    'Two pairs',
+    'Three of a kind',
+    'Straight',
+    'Flush',
+    'Full house',
+    'Four of a kind',
+    'Straight flush'
   ];
 
 var Scorer = function(options) {
@@ -79,13 +79,16 @@ var Scorer = function(options) {
 
 _.extend(Scorer.prototype, {
   scoreTable: function(table) {
-    // original 5 table cards
-    var tableCards = _.clone(table.flop);
-    tableCards.push(_.clone(table.turn), _.clone(table.river));
-
     _.each(table.seats, function (seat, idx) {
-      table.seats[idx] = this.scoreSeat(seat, tableCards);
+      seat = this.scoreSeat(seat, table.cards);
+      seat.score.winner = false;
+      table.seats[idx] = seat;
     }, this);
+
+    // find the max score, and mark as winner
+    _.max(table.seats, function (seat) {
+      return seat.score.value;
+    }).score.winner = true;
 
     return table;
   },
@@ -104,10 +107,8 @@ _.extend(Scorer.prototype, {
     }, 53, this); // not sure why we start at 53
 
     return {
-      name: HAND_TYPES[score >> 12],
-      value: score,
-      category: score >> 12,
-      rankWithinCategory: score & 0x00000fff
+      name: HAND_CATEGORIES[score >> 12],
+      value: score
     };
   },
 

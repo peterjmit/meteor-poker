@@ -6,10 +6,10 @@
 autopublish
 insecure
 preserve-inputs
-accounts-base
 bootstrap
 underscore
+accounts-base
 accounts-password
-accounts-twitter
 backbone
 jquery
+accounts-ui

@@ -61,19 +61,19 @@ _.extend(Dealer.prototype, {
   },
 
   dealFlop: function() {
-    this.table.flop = [];
-
-    this.table.flop.push(this.dealCard());
-    this.table.flop.push(this.dealCard());
-    this.table.flop.push(this.dealCard());
+    this.table.cards = [
+      this.dealCard(),
+      this.dealCard(),
+      this.dealCard()
+    ];
   },
 
   dealTurn: function(table) {
-    this.table.turn = this.dealCard();
+    this.table.cards.push(this.dealCard());
   },
 
   dealRiver: function(table) {
-    this.table.river = this.dealCard();
+    this.table.cards.push(this.dealCard());
   },
 
   dealCard: function() {
@@ -90,9 +90,7 @@ _.extend(Dealer.prototype, {
       seat.score = {};
     });
 
-    table.flop = [];
-    table.turn = {};
-    table.river = {};
+    table.cards = [];
 
     this.shuffle();
 
@@ -106,9 +104,7 @@ _.extend(Dealer.prototype, {
   getNextAction: function(table) {
     var
       seats = table.seats || [],
-      flop = table.flop || [],
-      turn = table.turn || {},
-      river = table.river || {};
+      cards = table.cards || [],
       isPreFlop = _.every(seats, function (seat) {
         return seat.playerId && seat.hand.length === 0;
       });
@@ -117,19 +113,19 @@ _.extend(Dealer.prototype, {
       return this.PRE_FLOP;
     }
 
-    if ( ! isPreFlop && flop.length === 0 && _.isEmpty(turn) && _.isEmpty(river)) {
+    if ( ! isPreFlop && cards.length === 0) {
       return this.FLOP;
     }
 
-    if ( ! isPreFlop && flop.length > 0 && _.isEmpty(turn) && _.isEmpty(river)) {
+    if ( ! isPreFlop && cards.length === 3) {
       return this.TURN;
     }
 
-    if ( ! isPreFlop && flop.length > 0 &&  ! _.isEmpty(turn) && _.isEmpty(river)) {
+    if ( ! isPreFlop && cards.length === 4) {
       return this.RIVER;
     }
 
-    if ( ! isPreFlop && flop.length > 0 && ! _.isEmpty(turn) && ! _.isEmpty(river)) {
+    if ( ! isPreFlop && cards.length === 5) {
       return this.ROUND_COMPLETE;
     }
 

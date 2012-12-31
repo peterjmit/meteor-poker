@@ -7,7 +7,6 @@ var dealer = function(method, callback) {
 Template.table.events({
   'click .deal': function(evt) {
     var $button = $(evt.target);
-    // var $message = $('.message');
 
     if ($button.hasClass('disabled')) {
       return;
@@ -18,7 +17,8 @@ Template.table.events({
     dealer('deal', function (error, response) {
       if (response.tableStatus === 'round-complete') {
         // disable the score button and not the deal button!
-        $button = $('.score');
+        $('.score').removeClass('disabled');
+        return;
       }
 
       $button.removeClass('disabled');

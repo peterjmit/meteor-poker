@@ -15,23 +15,11 @@
 
 <!-- hand can be displayed here -->
 <div class="row-fluid span12 table-cards">
-  {{#each table.flop}}
+  {{#each table.cards}}
   <div class="span2">
     <span class="card {{suit}} value-{{value}}"></span>
   </div>
   {{/each}}
-
-  {{#if table.turn.value}}
-  <div class="span2">
-    <span class="card {{table.turn.suit}} value-{{table.turn.value}}"></span>
-  </div>
-  {{/if}}
-
-  {{#if table.river.value}}
-  <div class="span2">
-    <span class="card {{table.river.suit}} value-{{table.river.value}}"></span>
-  </div>
-  {{/if}}
 </div>
 
 <hr />

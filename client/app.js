@@ -1,6 +1,10 @@
 Session.set('active_table_id', null);
 Session.set('active_hand_id', null);
 
+Accounts.ui.config({
+  passwordSignupFields: 'USERNAME_AND_EMAIL'
+});
+
 // Always be subscribed to the table a user has selected
 Meteor.autosubscribe(function () {
   var tableId = Session.get('active_table_id');
