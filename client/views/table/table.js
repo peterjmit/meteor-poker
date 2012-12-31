@@ -32,7 +32,9 @@ Template.table.events({
   },
 
   'click .score': function(evt) {
-    tableManager('scoreTable', function (error, response) {});
+    tableManager('scoreTable', function (error, response) {
+      console.log(arguments);
+    });
   },
 
   'click .new-hand': function(evt) {
@@ -65,7 +67,7 @@ Template.table.active_bets = function() {
   return _.reduce(table.seats, function(start, seat) {
     return parseInt(seat.bet || 0, 10) + start;
   }, 0);
-}
+};
 
 Template.table.any_table_selected = function() {
   if (Session.equals('active_table_id', null)) {
@@ -94,7 +96,7 @@ Template.table.seat_available = function () {
     return false;
   }
 
-  if (table.seats === table.maxSeats || isPlayerOnTable(table)) {
+  if (table.seats === table.maxSeats || isPlayerOnTable(table, userId)) {
     return false;
   }
 

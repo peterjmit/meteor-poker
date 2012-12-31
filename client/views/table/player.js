@@ -21,6 +21,10 @@ Template.table.events({
 
   'change .bet-value': function(evt) {
     $('.bet-value-display').html($('.bet-value').val());
+  },
+
+  'click .check': function(evt) {
+    tableManager('placeBet', 0, function() {});
   }
 });
 

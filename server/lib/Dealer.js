@@ -11,6 +11,7 @@ var Dealer = function(options) {
   this.FLOP = 'flop';
   this.TURN = 'turn';
   this.RIVER = 'river';
+  this.SHOWDOWN = 'showdown';
   this.ROUND_COMPLETE = 'round-complete';
 };
 
@@ -35,6 +36,9 @@ _.extend(Dealer.prototype, {
 
       case this.RIVER:
         this.dealRiver();
+        break;
+
+      case this.SHOWDOWN:
         break;
 
       case this.ROUND_COMPLETE:
@@ -140,7 +144,7 @@ _.extend(Dealer.prototype, {
     }
 
     if ( ! isPreFlop && cards.length === 5) {
-      return this.ROUND_COMPLETE;
+      return this.SHOWDOWN;
     }
 
     throw Meteor.Error(400, 'Table is in an unknown state');

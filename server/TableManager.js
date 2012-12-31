@@ -32,7 +32,7 @@ Meteor.methods({
 
   placeBet: function(tableId, amount) {
     var table, playersStillToBet, round,
-      // dealer = getDealerForTable(tableId),
+      dealer = getDealerForTable(tableId),
       user = Meteor.user();
 
     // check if player is eligible to bet
@@ -86,7 +86,7 @@ Meteor.methods({
     var table = Tables.findOne({ _id: tableId }),
       user = Meteor.user();
 
-    if ( ! table || isPlayerOnTable(table) || ! user) {
+    if ( ! table || isPlayerOnTable(table, user._id) || ! user) {
       throw new Meteor.Error(400, 'Join table failed: Invalid table, player already on table or no active user');
     }
 
@@ -108,7 +108,7 @@ Meteor.methods({
 
     userId = userId || Meteor.userId();
 
-    if ( ! table || ! isPlayerOnTable(table) || ! userId) {
+    if ( ! table || ! isPlayerOnTable(table, userId) || ! userId) {
       throw new Meteor.Error(400, 'Join table failed: Invalid table, player already on table or no active user');
     }
 
