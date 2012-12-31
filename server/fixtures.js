@@ -4,6 +4,7 @@ Meteor.startup(function () {
     Tables.insert({
       name: 'Table 1',
       cards: [],
+      pot: 0,
       maxSeats: 6,
       seats: [
       ]

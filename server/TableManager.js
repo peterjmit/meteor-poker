@@ -10,36 +10,102 @@ var getDealerForTable = function(tableId) {
   return dealers[tableId];
 };
 
+var deal = function(tableId) {
+  var table = Tables.findOne({ _id: tableId }),
+    dealer = getDealerForTable(tableId);
+
+  table = dealer.deal(table);
+
+  Tables.update({ _id: tableId }, {
+    $set: {
+      cards: table.cards,
+      seats: table.seats
+    }
+  });
+};
+
 Meteor.methods({
-  deal: function(tableId) {
-    var table = Tables.findOne({ _id: tableId });
-    var dealer = getDealerForTable(tableId);
+  deal: deal,
 
-    table = dealer.deal(table);
+  placeBet: function(tableId, amount) {
+    var table = Tables.findOne({ _id: tableId }),
+      dealer = getDealerForTable(tableId),
+      user = Meteor.user();
 
-    Tables.update({ _id: tableId }, table);
+    // check if player is eligible to bet
 
-    return {
-      tableStatus: dealer.getNextAction(table)
-    };
+    // update next player to go
+
+    Tables.update({ _id: tableId, 'seats.userId':  user._id }, {
+      $set: {
+        'seats.$.bet': amount
+      }
+    });
+
+    // deduct amount from players account
+
+
+    // finally deal if everyone has bet
   },
 
   scoreTable: function(tableId) {
-    var table = Tables.findOne({ _id: tableId });
-    var dealer = getDealerForTable(tableId);
+    var table = Tables.findOne({ _id: tableId }),
+      dealer = getDealerForTable(tableId);
 
     if (dealer.getNextAction(table) !== dealer.ROUND_COMPLETE) {
-      throw Meteor.Error(400, 'Table not ready to be scored');
+      throw new Meteor.Error(400, 'Table not ready to be scored');
     }
 
     table = scorer.scoreTable(table);
 
-    Tables.update({ _id: tableId }, table);
+    // should also distribute money!
+
+    Tables.update({ _id: tableId }, {
+      $set: { seats: table.seats }
+    });
+  },
+
+  joinTable: function(tableId) {
+    var table = Tables.findOne({ _id: tableId }),
+      user = Meteor.user();
+
+    if ( ! table || isPlayerOnTable(table) || ! user) {
+      throw new Meteor.Error(400, 'Join table failed: Invalid table, player already on table or no active user');
+    }
+
+    // add user into table
+    Tables.update({ _id: tableId }, {
+      $push: {
+        seats: {
+          userId: user._id,
+          name: user.username,
+          hand: [],
+          bet: 0
+        }
+      }
+    });
+  },
+
+  leaveTable: function(tableId, userId) {
+    var table = Tables.findOne({ _id: tableId });
+
+    userId = userId || Meteor.userId();
+
+    if ( ! table || ! isPlayerOnTable(table) || ! userId) {
+      throw new Meteor.Error(400, 'Join table failed: Invalid table, player already on table or no active user');
+    }
+
+    // remove user from table
+    Tables.update({ _id: tableId }, {
+      $pull: {
+        seats: { userId: userId }
+      }
+    });
   },
 
   resetTable: function(tableId) {
-    var table = Tables.findOne({ _id: tableId });
-    var dealer = getDealerForTable(tableId);
+    var table = Tables.findOne({ _id: tableId }),
+      dealer = getDealerForTable(tableId);
 
     table = dealer.resetTable(table);
 

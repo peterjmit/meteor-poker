@@ -15,6 +15,8 @@
 
 <!-- hand can be displayed here -->
 <div class="row-fluid span12 table-cards">
+  <p>Active bets: £{{active_bets}} <em>Pot: £{{table.pot}}</em></p>
+
   {{#each table.cards}}
   <div class="span2">
     <span class="card {{suit}} value-{{value}}"></span>
@@ -26,11 +28,20 @@
 
 <div class="row-fluid span12 players">
   {{#each table.seats}}
-    <div class="span2">
-      {{> player}}
-    </div>
+  <div class="span2">
+    {{> player}}
+  </div>
   {{/each}}
+  {{#if seat_available}}
+  <div class="span2">
+    <img src="/img/question.svg" alt="Join this seat">
+    <button class="btn btn-block btn-warning join-table">Join</button>
+  </div>
 </div>
+
+</div>
+{{/if}}
+
 
 {{/if}}
 </template>

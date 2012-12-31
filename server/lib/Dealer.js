@@ -54,7 +54,9 @@ _.extend(Dealer.prototype, {
 
   dealToPlayers: function() {
     _.each(this.table.seats, function (seat) {
-      if ( ! seat.playerId) return;
+      if ( ! seat.userId) return;
+
+      // seat.hand = seat.hand || [];
 
       seat.hand.push(this.dealCard());
     }, this);
@@ -88,9 +90,12 @@ _.extend(Dealer.prototype, {
     _.each(table.seats, function (seat) {
       seat.hand = [];
       seat.score = {};
+      seat.bet = null;
+      seat.folded = false;
     });
 
     table.cards = [];
+    table.pot = 0;
 
     this.shuffle();
 
@@ -106,7 +111,7 @@ _.extend(Dealer.prototype, {
       seats = table.seats || [],
       cards = table.cards || [],
       isPreFlop = _.every(seats, function (seat) {
-        return seat.playerId && seat.hand.length === 0;
+        return seat.userId && seat.hand.length === 0;
       });
 
     if (isPreFlop) {

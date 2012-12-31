@@ -6,23 +6,41 @@
 {{else}}
 <img src="/img/player-with-cards.svg" alt="poker player holding cards">
 {{/if}}
-<h3>{{name}}</h3>
+<h3>{{name}} {{#if bet}}£{{bet}}{{/if}}</h3>
 
 <div class="player-cards row-fluid">
-  {{#each hand}}
-  <div class="span6">
-    {{#if can_see_cards ../playerId}}
-    <span class="card {{suit}} value-{{value}}"></span>
-    {{else}}
-    <span class="card card-back"></span>
-    {{/if}}
-
-  </div>
-  {{/each}}
+  {{#if can_see_cards}}
+    {{#each hand}}
+    <div class="span6">
+      <span class="card {{suit}} value-{{value}}"></span>
+    </div>
+    {{/each}}
+  {{else}}
+    {{#each hand}}
+    <div class="span6">
+      <span class="card card-back"></span>
+    </div>
+    {{/each}}
+  {{/if}}
 
   {{#if score.value}}
   <p>{{score.name}}</p>
   {{/if}}
+
+  {{#if show_betting_controls}}
+  <input type="range" value="0" class="bet-value" />
+  <p>Bet £<span class="bet-value-display">0</span></p>
+
+  <div class="btn-group">
+    <button class="btn btn-info bet">Bet</button>
+    <button class="btn check">Check</button>
+    <button class="btn btn-warning fold">Fold</button>
+  </div>
+  {{/if}}
+
+  <hr />
+
+  <button class="btn btn-block btn-danger leave-table">Leave</button>
 </div>
 
 {{else}}
