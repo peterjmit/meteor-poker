@@ -75,7 +75,7 @@ Template.table.active_bets = function() {
   var table = Tables.findOne({ _id: Session.get('active_table_id') });
 
   return _.reduce(table.seats, function(start, seat) {
-    return 0;//(parseInt(seat.bet, 10) || 0) + start;
+    return parseInt(seat.bet || 0, 10) + start;
   }, 0);
 }
 
